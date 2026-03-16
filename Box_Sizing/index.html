@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Práctica Box Model - Misterio del Layout que se Rompe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Panel de Productos</h1>
+
+    <div class="contenedor">
+        <div class="card">
+            <h2>Producto 1</h2>
+            <p>Descripción corta del producto.</p>
+            <button>Comprar</button>
+        </div>
+
+        <div class="card">
+            <h2>Producto 2</h2>
+            <p>Descripción corta del producto.</p>
+            <button>Comprar</button>
+        </div>
+
+        <div class="card">
+            <h2>Producto 3</h2>
+            <p>Descripción corta del producto.</p>
+            <button>Comprar</button>
+        </div>
+    </div>
+
+    <section class="respuestas">
+        <h2>Preguntas y Respuestas</h2>
+
+        <h3>Parte 3 — Observación (SIN border-box)</h3>
+        <ol>
+            <li>Según los cálculos, deberían caber <strong>3 tarjetas</strong> en el contenedor (300 px × 3 = 900 px, y el contenedor mide 906 px).</li>
+            <li>Pero cuando lo ves, solo entran <strong>2 tarjetas</strong>.</li>
+            <li>La tercera tarjeta se baja porque el tamaño real de cada <code>.card</code> es más grande: 300 px de ancho, más 40 px de padding y 20 px de border, o sea, 360 px por tarjeta. Entonces 3 tarjetas suman 1080 px, que es más de lo que cabe.</li>
+        </ol>
+
+        <h3>Parte 6 — Observación nuevamente (CON border-box)</h3>
+        <ol>
+            <li>Ahora sí caben las 3 tarjetas sin problema.</li>
+            <li>Esto pasa porque con <code>border-box</code>, el ancho que pones (300 px) ya incluye el padding y el borde.</li>
+            <li>Lo que cambió es que el tamaño total de cada tarjeta es justo 300 px, así que 3 × 300 = 900 px.</li>
+        </ol>
+
+        <h3>Parte 7 — Experimento avanzado (width: 33.33%)</h3>
+        <ol>
+            <li>Si usas <code>width: 33.33%</code> sin <code>border-box</code>, el layout se rompe porque el porcentaje solo es para el contenido, y el padding y el borde se suman aparte.</li>
+            <li>Con <code>border-box</code> sí funciona bien.</li>
+            <li>Por eso los frameworks modernos usan esto: así no tienes que andar haciendo cuentas raras para layouts responsivos.</li>
+        </ol>
+
+        <h3>Parte 8 — Experimento profesional (Flexbox)</h3>
+        <ol>
+            <li>Con <code>border-box</code>, Flexbox pone las 3 tarjetas en fila y no hay desbordes.</li>
+            <li>Sin <code>border-box</code>, el layout se rompe: las tarjetas se apilan o se salen del contenedor.</li>
+        </ol>
+        <p><strong>¿Por qué usar <code>display: flex</code>?</strong> Porque el contenedor se vuelve flexible y las tarjetas se acomodan solas en fila.</p>
+
+        <h3>Parte 9 — Experimento extremo (padding grande + border grande)</h3>
+        <ul>
+            <li><strong>Sin border-box:</strong> Si le pones mucho padding (50 px) y borde (25 px), la tarjeta se hace enorme y ya no caben en una fila.</li>
+            <li><strong>Con border-box:</strong> No importa cuánto cambies el padding o el borde, las 3 tarjetas siempre caben porque el ancho ya lo incluye todo.</li>
+        </ul>
+
+        <h3>Parte 10 — Conclusión</h3>
+        <p>border-box es lo mejor porque el ancho que pones es el ancho real del elemento (contenido + padding + borde). Así te evitas errores y dolores de cabeza en layouts complejos o responsivos.</p>
+        <ul>
+            <li>Bootstrap</li>
+            <li>Tailwind</li>
+            <li>Normalize.css</li>
+            <li>Modern CSS Resets</li>
+        </ul>
+        <p>Con border-box, el layout ya no se rompe por cálculos raros.</p>
+    </section>
+
+</body>
+</html>
